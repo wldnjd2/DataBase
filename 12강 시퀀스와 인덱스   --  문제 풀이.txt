@@ -1,0 +1,27 @@
+-- 12강 시퀀스와 인덱스   --  문제 풀이 
+
+--1. 사원 테이블의 사원번호가 자동으로 생성되도록 시퀀스를 생성하시오. 
+
+CREATE SEQUENCE emp_seq 
+    START WITH 1 
+    INCREMENT BY 1 
+    MAXVALUE 100000; 
+ 
+ 
+--	2. 사원번호를 시퀀스로 부터 발급받으시오. 
+CREATE TABLE emp01( 
+    empno number(4) PRIMARY KEY, 
+    ename VARCHAR2(10), 
+    HIREDATE date 
+); 
+ 
+INSERT INTO emp01 
+VALUES(emp_seq.NEXTVAL, 'julia',sysdate); 
+INSERT INTO emp01 
+VALUES(emp_seq.NEXTVAL, 'Alice',TO_DATE('2020/12/31','YYYY/MM/DD')); 
+ 
+SELECT * FROM emp01; 
+ 
+--  3. EMP01테이블의 이름 칼럼을 인덱스로 설정하되 인덱스 이름을 IDX_EMP01_EName로 지정하세요. 
+CREATE INDEX idx_emp01_ename 
+ON emp01(ename); 

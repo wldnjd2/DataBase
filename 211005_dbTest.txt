@@ -1,0 +1,61 @@
+문제1.
+
+--상품 관리용 테이블
+create table productsTbl (
+productid char(10),
+productName nvarchar2(20),
+price number,
+amount number,
+constraint PK_productsTbl_productid primary key(productid)
+);
+
+
+--거래처 관리용 테이블
+create table customerTbl (
+customerid char(10),
+customername nvarchar2(20),
+customerAddr nvarchar2(100),
+customerContact char(11),
+constraint PK_customerTbl_customerid primary key(customerid)
+);
+
+--거래 관리 테이블
+create table tradeTbl (
+tradeNo char(10),
+productid char(10),
+customerid char(10),
+tradeAmount number,
+constraint PK_tradeTbl_tradeTbl primary key (tradeNo),
+constraint PK_productsTbl_tradeTbl foreign key (productid) references productsTbl(productid)
+);
+
+
+insert into productsTbl values ('B001','JAVA',20000,100);
+insert into productsTbl values ('B002','HTML&CSS',15000,150);
+insert into productsTbl values ('B003','Python',17500,200);
+insert into productsTbl values ('B004','javaScript',17000,150);
+insert into productsTbl values ('B005','Oracle',25000,75);
+select * from productsTbl;
+
+
+
+insert into customerTbl values ('S001','수주IT그룹','경기도 수원시','01012345678');
+insert into customerTbl values ('N001','남양소프트웨어','경기도 화성시','01045678965');
+insert into customerTbl values ('K001','과주IDC센터','경기도 과천시','01014753695');
+insert into customerTbl values ('K002','금주정보통신','경기도 시흥시','01098753215');
+insert into customerTbl values ('S002','서원소프트','경기도 용인시','01012357895');
+select * from customerTbl;
+
+
+insert into tradeTbl values ('T001','B003','S002',30);
+insert into tradeTbl values ('T002','B003','N001',40);
+insert into tradeTbl values ('T003','B004','S002',20);
+insert into tradeTbl values ('T004','B005','N001',40);
+insert into tradeTbl values ('T005','B004','K002',50);
+select * from tradeTbl;
+
+
+commit;
+select * from productsTbl;
+select * from customerTbl;
+select * from tradeTbl;
